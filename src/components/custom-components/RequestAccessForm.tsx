@@ -90,7 +90,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
     <AnimatePresence mode="wait">
       {showForm && (
         <motion.div
-          className="fixed inset-0 w-full min-h-screen flex flex-col justify-center items-center bg-[rgba(0,0,0,0.4)] backdrop-blur-xs z-40 px-3"
+          className="fixed top-0 inset-0 w-full min-h-screen flex flex-col justify-center items-center bg-[rgba(0,0,0,0.4)] backdrop-blur-xs z-40 px-3"
           initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1 }}
