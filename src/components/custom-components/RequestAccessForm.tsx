@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import CustomTextArea from "./CustomTextArea";
@@ -9,6 +9,7 @@ import CustomButton from "./CustomButton";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { showToast } from "../../../utils/showToast";
+import axios from "axios";
 
 interface AccessProps {
   showForm: boolean;
@@ -16,6 +17,8 @@ interface AccessProps {
 }
 
 const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
+  const [loading, setLoading] = useState(false);
+
   const instituteType = [
     { name: "Commercial", value: "Commercial" },
     { name: "Mortgage", value: "Mortgage" },
@@ -44,11 +47,41 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
     institutionType: yup.string().required("Required"),
   });
 
-  const onSubmit = () => {
-    console.log(values);
-    showToast.success("Request sent");
-    resetForm();
-    setShowForm(false);
+  const onSubmit = async (values: any) => {
+    setLoading(true);
+
+    const reqbody = {
+      fullName: values.fullName,
+      workEmail: values.workEmail,
+      institution: values.institution,
+      institutionType: values.institutionType,
+      role: values.role,
+      teamSize: values.teamSize,
+      regionCovered: values.regionCovered,
+      useCase: values.useCase,
+      anythingElse: values.anythingElse,
+    };
+
+    try {
+      const { data } = await axios.post("/api/request_access", reqbody);
+      console.log(data);
+      showToast.success("Request sent");
+      resetForm();
+      setShowForm(false);
+    } catch (err: any) {
+      console.log(err.response);
+      if (
+        err?.response?.data?.message ===
+          "This email address has already been submitted to the waitlist." &&
+        err?.response?.status === 400
+      ) {
+        showToast.error("Email exist in waitlist, register with another");
+      } else {
+        showToast.error("An error occurred, please try again");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const {
@@ -130,6 +163,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     error={errors.fullName && touched.fullName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                   <CustomInput
                     label="Work email"
@@ -141,6 +175,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     error={errors.workEmail && touched.workEmail}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                 </div>
 
@@ -155,6 +190,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     error={errors.institution && touched.institution}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                   <CustomSelect
                     label="Institution type"
@@ -167,6 +203,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     error={errors.institutionType && touched.institutionType}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                 </div>
 
@@ -179,6 +216,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     value={values.role}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                   <CustomInput
                     label="Team size"
@@ -190,6 +228,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     value={values.teamSize}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                 </div>
 
@@ -203,6 +242,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     value={values.regionCovered}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                   <CustomSelect
                     label="Use case"
@@ -213,6 +253,7 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                     value={values.useCase}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                   />
                 </div>
                 <CustomTextArea
@@ -224,18 +265,21 @@ const RequestAccessForm = ({ showForm, setShowForm }: AccessProps) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className="h-[100px]"
+                  disabled={loading}
                 />
               </div>
               <div className="bg-dark px-4 py-5 flex flex-wrap sm:flex-nowrap justify-between gap-6 items-center">
-                <p className="text-xs text-[#A8A8A8] shrink-0">
-                  No account required. We only use these details to
-                  <br /> contact you about Orbital.
+                <p className="text-xs text-[#A8A8A8]">
+                  No account required. We only use these details to contact you
+                  about Orbital.
                 </p>
 
                 <CustomButton
                   name="Request early access"
-                  className="w-full sm:w-fit"
+                  className="w-full sm:w-fit ml-auto"
                   type="submit"
+                  disabled={loading}
+                  loading={loading}
                 />
               </div>
             </form>
