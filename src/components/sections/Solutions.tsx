@@ -341,6 +341,7 @@ const Solutions = () => {
     <div
       className="max-w-[1300px] w-full mx-auto px-3 sm:px-6 lg:px-10 2xl:px-0"
       id="Solution"
+      style={{ scrollMarginTop: "100px" }}
     >
       <RequestAccessForm showForm={showForm} setShowForm={setShowForm} />
       <DemoAccessForm

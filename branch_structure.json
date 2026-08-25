@@ -1,0 +1,24 @@
+{
+  "default_branch": "master",
+  "branches": [
+    "bugfix/spinner",
+    "feature/open-graph-implementation",
+    "feature/request-access-and-demo-access",
+    "master",
+    "origin"
+  ],
+  "parent": {
+    "bugfix/spinner": "master",
+    "feature/open-graph-implementation": "master",
+    "feature/request-access-and-demo-access": "master",
+    "master": null,
+    "origin": "master"
+  },
+  "order": [
+    "master",
+    "bugfix/spinner",
+    "feature/open-graph-implementation",
+    "feature/request-access-and-demo-access",
+    "origin"
+  ]
+}

@@ -110,6 +110,7 @@ body {
   background: #0f0f0f;
   color: white;
   @apply font-alt;
+  scroll-margin-top: 82px;
 }
 
 html {
