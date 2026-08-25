@@ -198,7 +198,7 @@ const Footer = () => {
 
           <div className="flex flex-col gap-3">
             {note.map((n, index: number) => (
-              <p className="text-sm text-[#6E6D7A]">
+              <p className="text-sm text-[#6E6D7A]" key={index}>
                 {index + 1}. {n}
               </p>
             ))}

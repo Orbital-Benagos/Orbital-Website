@@ -21,7 +21,11 @@ const Hero = () => {
   const [showForm, setShowForm] = useState(false);
   const [showDemoForm, setShowDemoForm] = useState(false);
   return (
-    <div className="mx-auto w-full flex flex-col" id="Platform">
+    <div
+      className="mx-auto w-full flex flex-col"
+      id="Platform"
+      style={{ scrollMarginTop: "100px" }}
+    >
       <RequestAccessForm showForm={showForm} setShowForm={setShowForm} />
       <DemoAccessForm
         setShowDemoForm={setShowDemoForm}

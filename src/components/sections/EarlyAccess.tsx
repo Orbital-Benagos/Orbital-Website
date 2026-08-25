@@ -38,7 +38,7 @@ const EarlyAccess = () => {
         <p className="text-center mx-auto text-[#A8A8A8] text-[15px] mt-3">
           Orbital hasn't launched yet. Join the waitlist and we'll bring you
           into the first
-          <br />
+          <br className="hidden sm:flex" />
           cohort with a private walkthrough shaped around your product roadmap.
         </p>
 
