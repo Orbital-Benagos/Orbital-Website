@@ -43,10 +43,12 @@ const DemoAccessForm = ({
 
     try {
       const { data } = await axios.post("/api/verify_access", reqbody);
-      console.log(data);
       showToast.success("Access granted, redirecting please wait");
       resetForm();
       setShowDemoForm(false);
+      if (data?.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      }
     } catch (err: any) {
       console.log(err.response);
       if (err?.response?.status === 401) {
