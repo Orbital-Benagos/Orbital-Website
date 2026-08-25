@@ -45,6 +45,7 @@ const Capabilities = () => {
     <div
       className="max-w-[1300px] w-full mx-auto px-3 sm:px-6 lg:px-10 2xl:px-0"
       id="Capabilities"
+      style={{ scrollMarginTop: "100px" }}
     >
       <div className="flex items-center gap-2">
         <div className="w-5 bg-blue h-0.5" />
