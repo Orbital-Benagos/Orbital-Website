@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <motion.div
-      className="bg-transparent absolute top-0 inset-x-0 z-10 px-3 sm:px-6 lg:px-10 2xl:px-0 py-4 h-fit"
+      className="bg-transparent z-20 backdrop-blur-xs fixed top-0 inset-x-0 px-3 sm:px-6 lg:px-10 2xl:px-0 py-4 h-fit"
       initial={{ y: -10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
