@@ -4,8 +4,13 @@ import Image from "next/image";
 import CustomButton from "../custom-components/CustomButton";
 import { ArrowUpRight01Icon, FavouriteIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import RequestAccessForm from "../custom-components/RequestAccessForm";
+import DemoAccessForm from "../custom-components/DemoAccessForm";
+import { useState } from "react";
 
 const Footer = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [showDemoForm, setShowDemoForm] = useState(false);
   const socials = [
     { icon: "/assets/linkedin.svg", link: "/" },
     { icon: "/assets/instagram.svg", link: "/" },
@@ -67,6 +72,12 @@ const Footer = () => {
 
   return (
     <div className="bg-black py-15 lg:py-20 mt-20">
+      <RequestAccessForm showForm={showForm} setShowForm={setShowForm} />
+      <DemoAccessForm
+        setShowDemoForm={setShowDemoForm}
+        showDemoForm={showDemoForm}
+        setShowRequestForm={setShowForm}
+      />
       <div className="max-w-[1300px] w-full mx-auto px-3 sm:px-6 lg:px-10 2xl:px-0">
         <div className="flex flex-col lg:flex-row justify-between gap-10 flex-wrap">
           <div>
@@ -87,6 +98,7 @@ const Footer = () => {
             <CustomButton
               name="Request early access"
               className="mt-6 w-fit bg-transparent border-gray hover:text-white"
+              onClick={() => setShowForm(true)}
             />
             <div className="flex gap-3 mt-6">
               {socials.map((s, index: number) => (

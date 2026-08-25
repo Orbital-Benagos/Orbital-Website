@@ -10,7 +10,7 @@ import Works from "@/components/sections/Works";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-30">
+    <div className="flex flex-col gap-30 overflow-x-hidden">
       <Hero />
       <Problem />
       <Solutions />

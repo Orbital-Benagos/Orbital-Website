@@ -23,7 +23,7 @@ const CustomSelect = ({
   ...rest
 }: SelectProps) => {
   const base = `w-full rounded-md !border-gray !focus-visible:ring-1 !focus-visible:ring-blue h-[46px] !border !text-sm !font-normal bg-transparent placeholder:text-dark`;
-  const errorClass = error ? "border-red-500" : "border-gray";
+  const errorClass = error ? "!border-red-500" : "border-gray";
   return (
     <div className="w-full">
       <p className="text-[#6E6D7A] text-sm font-medium mb-1">

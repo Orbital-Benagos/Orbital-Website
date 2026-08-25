@@ -81,7 +81,10 @@ const Navbar = () => {
                       href={n.link}
                       key={index}
                       className={`cursor-pointer w-full text-center py-3 px-2 ${active ? "text-white border-b-2 border-blue font-medium" : "text-white/40 no-underline font-medium"}`}
-                      onClick={() => setActiveLink(n.name)}
+                      onClick={() => {
+                        setActiveLink(n.name);
+                        setSheetOpen(false);
+                      }}
                     >
                       <p>{n.name}</p>
                     </Link>

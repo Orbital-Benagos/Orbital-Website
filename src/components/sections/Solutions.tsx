@@ -3,6 +3,8 @@ import CustomButton from "../custom-components/CustomButton";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import RequestAccessForm from "../custom-components/RequestAccessForm";
+import DemoAccessForm from "../custom-components/DemoAccessForm";
 
 /* ─── build an orthogonal elbow path: H → arc → V → arc → H ──── */
 const CORNER_R = 8;
@@ -18,7 +20,9 @@ function buildElbowPath(
   // If same y, just a straight horizontal line
   if (Math.abs(sy - ey) < 1) return `M ${sx} ${sy} H ${ex}`;
 
+  const dx = ex - sx;
   const dy = ey - sy;
+  const dirX = dx > 0 ? 1 : -1;
   const dirY = dy > 0 ? 1 : -1;
   const r = Math.min(
     CORNER_R,
@@ -26,15 +30,18 @@ function buildElbowPath(
     Math.abs(elbowX - sx) / 2,
     Math.abs(ex - elbowX) / 2,
   );
-  // sweep=1 going down, sweep=0 going up (same for both corners)
-  const sw = dirY > 0 ? 1 : 0;
+
+  // Corner 1: Moving Horizontal -> turning Vertical
+  const sw1 = dirX === dirY ? 1 : 0;
+  // Corner 2: Moving Vertical -> turning Horizontal
+  const sw2 = dirX === dirY ? 0 : 1;
 
   return [
     `M ${sx} ${sy}`,
-    `H ${elbowX - r}`,
-    `A ${r} ${r} 0 0 ${sw} ${elbowX} ${sy + r * dirY}`,
+    `H ${elbowX - r * dirX}`,
+    `A ${r} ${r} 0 0 ${sw1} ${elbowX} ${sy + r * dirY}`,
     `V ${ey - r * dirY}`,
-    `A ${r} ${r} 0 0 ${sw} ${elbowX + r} ${ey}`,
+    `A ${r} ${r} 0 0 ${sw2} ${elbowX + r * dirX} ${ey}`,
     `H ${ex}`,
   ].join(" ");
 }
@@ -51,22 +58,27 @@ function buildVerticalElbowPath(
   if (Math.abs(sx - ex) < 1) return `M ${sx} ${sy} V ${ey}`;
 
   const dx = ex - sx;
+  const dy = ey - sy;
   const dirX = dx > 0 ? 1 : -1;
+  const dirY = dy > 0 ? 1 : -1;
   const r = Math.min(
     CORNER_R,
     Math.abs(dx) / 2,
     Math.abs(elbowY - sy) / 2,
     Math.abs(ey - elbowY) / 2,
   );
-  // clockwise when turning down→right, counter-clockwise for down→left
-  const sw = dirX > 0 ? 1 : 0;
+
+  // Corner 1: Moving Vertical -> turning Horizontal
+  const sw1 = dirX === dirY ? 0 : 1;
+  // Corner 2: Moving Horizontal -> turning Vertical
+  const sw2 = dirX === dirY ? 1 : 0;
 
   return [
     `M ${sx} ${sy}`,
-    `V ${elbowY - r}`,
-    `A ${r} ${r} 0 0 ${sw} ${sx + r * dirX} ${elbowY}`,
+    `V ${elbowY - r * dirY}`,
+    `A ${r} ${r} 0 0 ${sw1} ${sx + r * dirX} ${elbowY}`,
     `H ${ex - r * dirX}`,
-    `A ${r} ${r} 0 0 ${sw} ${ex} ${elbowY + r}`,
+    `A ${r} ${r} 0 0 ${sw2} ${ex} ${elbowY + r * dirY}`,
     `V ${ey}`,
   ].join(" ");
 }
@@ -169,6 +181,9 @@ const Solutions = () => {
     "Configure rules, roles and compliance controls",
     "Preview and deploy to iOS and Android",
   ];
+
+  const [showForm, setShowForm] = useState(false);
+  const [showDemoForm, setShowDemoForm] = useState(false);
 
   /* refs for measuring positions */
   const containerRef = useRef<HTMLDivElement>(null);
@@ -327,6 +342,12 @@ const Solutions = () => {
       className="max-w-[1300px] w-full mx-auto px-3 sm:px-6 lg:px-10 2xl:px-0"
       id="Solution"
     >
+      <RequestAccessForm showForm={showForm} setShowForm={setShowForm} />
+      <DemoAccessForm
+        setShowDemoForm={setShowDemoForm}
+        showDemoForm={showDemoForm}
+        setShowRequestForm={setShowForm}
+      />
       {/* top copy */}
       <div className="flex flex-col lg:flex-row justify-between gap-6">
         <div className="shrink-0">
@@ -357,6 +378,7 @@ const Solutions = () => {
             iconRight={ArrowUpRight01Icon}
             className="w-full mt-8 flex lg:hidden"
             iconClassName=""
+            onClick={() => setShowDemoForm(true)}
           />
         </div>
 
@@ -375,6 +397,7 @@ const Solutions = () => {
         iconRight={ArrowUpRight01Icon}
         className="w-full sm:w-fit mt-8 hidden lg:flex"
         iconClassName=""
+        onClick={() => setShowDemoForm(true)}
       />
 
       {/* diagram */}

@@ -5,7 +5,7 @@ import { IoMdPlay } from "react-icons/io";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import RequestAccessForm from "../custom-components/RequestAccessForm";
-
+import DemoAccessForm from "../custom-components/DemoAccessForm";
 interface StatsProps {
   name: string;
   info: string;
@@ -19,9 +19,15 @@ const Hero = () => {
     { name: "99.95%", info: "Platform uptime target", color: "#00ad77" },
   ];
   const [showForm, setShowForm] = useState(false);
+  const [showDemoForm, setShowDemoForm] = useState(false);
   return (
     <div className="mx-auto w-full flex flex-col" id="Platform">
       <RequestAccessForm showForm={showForm} setShowForm={setShowForm} />
+      <DemoAccessForm
+        setShowDemoForm={setShowDemoForm}
+        showDemoForm={showDemoForm}
+        setShowRequestForm={setShowForm}
+      />
       <div className="w-full h-180 relative opacity-50">
         <Image
           src="/assets/mesh.svg"
@@ -35,7 +41,7 @@ const Hero = () => {
           <motion.div
             className="shrink-0"
             initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
           >
             <div className="bg-dark rounded-full py-2 px-4 border border-[#2A2C2F] flex items-center gap-2 w-fit">
@@ -55,7 +61,7 @@ const Hero = () => {
           <motion.div
             className="mt-auto h-full"
             initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
           >
             <p className="max-w-lg text-[#A8A8A8] text-[15px]">
@@ -74,6 +80,7 @@ const Hero = () => {
                 iconRight={ArrowUpRight01Icon}
                 className="bg-dark border border-[#2A2C2F] hover:text-white/50 w-full sm:w-fit"
                 iconClassName="group-hover:text-white/50"
+                onClick={() => setShowDemoForm(true)}
               />
             </div>
           </motion.div>
@@ -82,7 +89,7 @@ const Hero = () => {
         <motion.div
           className="h-70 sm:h-100 lg:h-140 rounded-sm w-full relative overflow-hidden mt-15 sm:mt-20 lg:mt-40"
           initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
           id="Demo"
         >
