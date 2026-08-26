@@ -12,10 +12,13 @@ const Footer = () => {
   const [showForm, setShowForm] = useState(false);
   const [showDemoForm, setShowDemoForm] = useState(false);
   const socials = [
-    { icon: "/assets/linkedin.svg", link: "/" },
-    { icon: "/assets/instagram.svg", link: "/" },
-    { icon: "/assets/twitter.svg", link: "/" },
-    { icon: "/assets/substack.svg", link: "/" },
+    {
+      icon: "/assets/linkedin.svg",
+      link: "https://linkedin.com/company/benagos",
+    },
+    { icon: "/assets/instagram.svg", link: "https://instagram.com/benagoshq" },
+    { icon: "/assets/twitter.svg", link: "https://x.com/benagoshq" },
+    // { icon: "/assets/substack.svg", link: "/" },
   ];
 
   const platform = [
