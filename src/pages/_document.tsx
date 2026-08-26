@@ -14,6 +14,33 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         />
+
+        {/* open graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Orbital" />
+        <meta
+          property="og:title"
+          content="Orbital, Ship compliant bank-grade apps in weeks, not months."
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="Orbital is a Benagos product built for banks, mortgage banks, Microfinance institutions and large finance companies that need to get a credible digital product into market quickly."
+        />
+        <meta property="og:url" content="https://orbital.benagos.com" />
+        <meta property="og:author" name="Afolabi Babatunde Joseph" />
+        <meta property="og:author" name="Ehizojie Ihayere" />
+        <meta
+          property="og:image"
+          content="https://orbital.benagos.com/assets/hero.jpg?v=3"
+        />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content="https://orbital.benagos.com/assets/hero.jpg?v=3"
+        />
       </Head>
       <body className="antialiased">
         <Main />
